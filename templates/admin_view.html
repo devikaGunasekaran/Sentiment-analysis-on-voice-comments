@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin – Student Verification Review</title>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+      background: #f0f2f5;
+      color: #333;
+    }
+
+    .container {
+      padding: 20px;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .section-box {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 18px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+      border-left: 6px solid #ff9800;
+    }
+
+    .title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    .label {
+      font-weight: 600;
+      font-size: 14px;
+      margin-top: 10px;
+      color: #555;
+    }
+
+    .value {
+      font-size: 15px;
+      font-weight: 600;
+      color: #222;
+      margin-bottom: 10px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+    .green { background: #4caf50; color: white; }
+    .red { background: #f44336; color: white; }
+    .orange { background: #ff9800; color: white; }
+
+    .summary-box {
+      background: #fff9e6;
+      padding: 15px;
+      border-radius: 8px;
+      border: 2px solid #ffc107;
+      margin-top: 10px;
+      white-space: pre-line;
+    }
+
+    .final-decision {
+      background: white;
+      border: 2px solid #333;
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 15px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .final-title {
+      font-size: 18px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-top: 10px;
+      font-size: 15px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 15px;
+      font-size: 15px;
+      background: #ff9800;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 18px;
+      transition: 0.2s;
+    }
+
+    .submit-btn:hover {
+      background: #f57c00;
+    }
+
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- STUDENT DETAILS -->
+  <div class="section-box">
+    <div class="title">Student Details</div>
+
+    <div class="label">Student ID:</div>
+    <div class="value">{{ student.studentId }}</div>
+
+    <div class="label">Name:</div>
+    <div class="value">{{ student.name }}</div>
+
+    <div class="label">District:</div>
+    <div class="value">{{ student.district }}</div>
+
+    <div class="label">Gender:</div>
+    <div class="value">{{ student.gender }}</div>
+
+    <div class="label">DOB:</div>
+    <div class="value">{{ student.dob }}</div>
+
+    <div class="label">Phone:</div>
+    <div class="value">{{ student.phone }}</div>
+
+    <div class="label">Address:</div>
+    <div class="value">{{ student.address }}</div>
+
+    <div class="label">Annual Income:</div>
+    <div class="value">{{ student.income }}</div>
+  </div>
+
+  <!-- PV RESULTS -->
+  <div class="section-box">
+    <div class="title">Volunteer – Physical Verification Report</div>
+
+    <div class="label">Volunteer ID:</div>
+    <div class="value">{{ pv.volunteerId }}</div>
+
+    <!-- TEXT COMMENT (Translated Tanglish to English) -->
+    <div class="label">Translated Volunteer Comment:</div>
+    <div class="summary-box">{{ pv.comment }}</div>
+
+    <!-- TV COMMENTS (Audio → English) -->
+    <div class="label">TV Comments (Voice Transcription):</div>
+    <div class="summary-box">{{ tv.comments }}</div>
+
+    <div class="label">Summary (AI Extracted Points):</div>
+    <div id="summary" class="summary-box"></div>
+
+    <div class="label">Sentiment Result:</div>
+    <span class="badge 
+      {% if pv.sentiment == 'Positive' %}green
+      {% elif pv.sentiment == 'Negative' %}red
+      {% else %}orange
+      {% endif %}
+    ">{{ pv.sentiment }}</span>
+
+    <br><br>
+
+    {% set percent = (pv.sentiment_text | float) * 100 %}
+    {% set percent = percent | round(0) %}
+
+    <div class="label">Sentiment Confidence Score:</div>
+    <span class="badge 
+      {% if percent >= 70 %}green
+      {% elif percent >= 40 %}orange
+      {% else %}red
+      {% endif %}
+    ">{{ percent }}%</span>
+
+    <br><br>
+
+    <div class="label">Volunteer Final Status:</div>
+    <span class="badge 
+      {% if pv.status == 'SELECT' %}green
+      {% elif pv.status == 'REJECT' %}red
+      {% else %}orange
+      {% endif %}
+    ">{{ pv.status }}</span>
+
+  </div>
+
+  <!-- ADMIN DECISION -->
+  <div class="final-decision">
+    <div class="final-title">Admin Final Decision</div>
+
+    <form action="/admin/final_status_update/{{ student.studentId }}" method="POST">
+
+      <div class="label">Select Final Decision:</div>
+      <select name="admin_status" required>
+        <option value="">-- Select Status --</option>
+        <option value="APPROVED">APPROVED</option>
+        <option value="REJECTED">REJECTED</option>
+      </select>
+
+      <button class="submit-btn" type="submit">Update Decision</button>
+    </form>
+  </div>
+
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    try {
+      let summaryText = {{ pv.elementsSummary | tojson | safe }};
+      if (summaryText) {
+        document.getElementById("summary").innerText =
+          summaryText.replace(/;/g, ";\n");
+      }
+    } catch (err) {
+      console.error("Error loading summary:", err);
+    }
+  });
+</script>
+
+</body>
+</html>

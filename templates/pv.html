@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PV Volunteer - Physical Verification Form</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #eef0f4;  
+  color: #333;
+}
+
+/* ===== Minimized Header ===== */
+.header {
+  background: white;
+  padding: 8px 0;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.logo-img {
+  height: 45px;
+  margin-bottom: 4px;
+}
+
+.header-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #ff9800;
+}
+
+/* ===== Container ===== */
+.container {
+  width: 95%;
+  max-width: 1180px;
+  margin: 20px auto;
+  padding: 25px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+}
+
+.student-info {
+  text-align: center;
+  background: #fff3e0;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: #333;
+  font-weight: 600;
+}
+
+.section {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+textarea, select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+textarea {
+  min-height: 80px;
+}
+
+textarea:focus, select:focus {
+  border-color: #ff9800;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255,152,0,0.1);
+}
+
+/* Buttons */
+.recording-controls {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.record-btn, .stop-btn {
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: none;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  color: white;
+}
+
+.record-btn { background: #4caf50; }
+.stop-btn { background: #f44336; }
+
+/* Audio */
+audio {
+  width: 100%;
+  margin-top: 15px;
+  display: none;
+}
+
+audio:not([style*="display: none"]) {
+  display: block;
+}
+
+.upload-box {
+  width: 100%;
+  padding: 10px;
+  border: 2px dashed #ddd;
+  border-radius: 6px;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 15px;
+  border-radius: 8px;
+  border: none;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  background: #ff9800;
+  margin-top: 30px;
+  cursor: pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <img src="logo_icon.png" class="logo-img">
+  <div class="header-title">Physical Verification Form</div>
+</div>
+
+<div class="container">
+  <p class="student-info"><b>Student ID:</b> {{ studentId }}</p>
+
+  <!-- BASIC FIELDS -->
+  <div class="section">
+    <label>Property Type</label>
+    <textarea id="propertyType" placeholder="House / Rental / Orphanage / Hostel"></textarea>
+  </div>
+
+  <div class="section">
+    <label>What You Saw</label>
+    <textarea id="whatYouSaw" placeholder="Describe what you observed."></textarea>
+  </div>
+
+  <!-- MAIN COMMENTS TEXTAREA (MATCHING WORKING VERSION) -->
+  
+  <!-- 8 EXTRA COMMENT BOXES -->
+  <div class="section">
+  <h2 style="font-size:18px; margin-bottom:10px;">🧾 PV Volunteer Additional Comments</h2>
+
+  <div class="comments">
+
+    <div>
+      <div class="comment-label">Family Background <span class="required">*</span></div>
+      <textarea id="c_family" placeholder="Eg: Write about your family members — their jobs, income, and education. Mention how your family manages monthly expenses and whether anyone supports your education." required></textarea>
+    </div>
+
+    <div>
+      <div class="comment-label">Household Verification <span class="required">*</span></div>
+      <textarea id="c_household" placeholder="Eg: Describe your home. Is it owned or rented? Mention roof type, number of rooms, and items like furniture, TV, fridge, or vehicle. Note if items are new or old, and if bought fully or on EMI." required></textarea>
+    </div>
+
+    <div>
+      <div class="comment-label">Financial Observation <span class="required">*</span></div>
+      <textarea id="c_financial" placeholder="Eg: Give details about your family’s total income and monthly expenses. Mention any savings, support from relatives or government schemes, and how your family manages financially." required></textarea>
+    </div>
+
+    <div>
+      <div class="comment-label">Loan / EMI Details <span class="required">*</span></div>
+      <textarea id="c_loan" placeholder="Eg: Enter details of any existing loans. Include the loan purpose (education, house, vehicle, etc.), EMI amount, remaining balance, and whether it affects your financial stability." required></textarea>
+    </div>
+
+    <div>
+      <div class="comment-label">Application for Education Loan <span class="required">*</span></div>
+      <textarea id="c_edu_loan" placeholder="Eg: State whether you are aware of education loans, if you are eligible, and whether you have applied. If not, mention if you need help or guidance to apply for one." required></textarea>
+    </div>
+
+    <div>
+      <div class="comment-label">Student Attitude / Behavior <span class="required">*</span></div>
+      <textarea id="c_attitude" placeholder="Eg: Describe about the student's willingness to study, ability to live away from home if needed, sense of responsibility, and communication skills." required></textarea>
+    </div>
+
+    <div>
+      <div class="comment-label">Other Observations (Scenario-Based) <span class="required">*</span></div>
+      <textarea id="c_observation" placeholder="Eg: Mention any special or sensitive situations such as single-parent families, orphaned students, health issues, or other conditions needing additional support." required></textarea>
+    </div>
+
+    <div>
+      <div class="comment-label">If not selected by Maatram — What next? <span class="required">*</span></div>
+      <textarea id="c_backup" placeholder="Eg: Explain your backup plan if the Maatram Scholarship is not approved. For example, applying for another NGO or government scholarship, taking an education loan, or working part-time." required></textarea>
+    </div>
+
+  </div>
+</div>
+
+  
+  <div class="section">
+    <label>Recommendation</label>
+    <select id="volunteerRecommendation">
+      <option disabled selected>-- Select Recommendation --</option>
+      <option value="SELECT">Select</option>
+      <option value="ON HOLD">On Hold</option>
+      <option value="REJECT">Reject</option>
+    </select>
+  </div>
+
+  <!-- RECORD AUDIO -->
+  <div class="section">
+    <label>Record Voice Comment</label>
+    <div class="recording-controls">
+      <button class="record-btn" id="startRecordBtn">Start Recording</button>
+      <button class="stop-btn" id="stopRecordBtn" disabled>Stop</button>
+    </div>
+    <audio id="audioPlayback" controls></audio>
+  </div>
+
+  <!-- UPLOAD AUDIO -->
+  <div class="section">
+    <label>OR Upload Audio File</label>
+    <input type="file" id="audioFile" accept="audio/*" class="upload-box">
+    <audio id="uploadedAudio" controls style="display:none;"></audio>
+  </div>
+
+  <button class="submit-btn" id="submitBtn" type="button">Submit</button>
+</div>
+
+<script>
+let mediaRecorder;
+let audioChunks = [];
+let audioBase64 = "";
+
+/* Start Recording */
+document.getElementById("startRecordBtn").onclick = async () => {
+    let stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    mediaRecorder = new MediaRecorder(stream);
+    audioChunks = [];
+    mediaRecorder.start();
+    document.getElementById("startRecordBtn").disabled = true;
+    document.getElementById("stopRecordBtn").disabled = false;
+    mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+};
+
+/* Stop Recording */
+document.getElementById("stopRecordBtn").onclick = () => {
+    mediaRecorder.stop();
+    document.getElementById("stopRecordBtn").disabled = true;
+    document.getElementById("startRecordBtn").disabled = false;
+
+    mediaRecorder.onstop = () => {
+        let blob = new Blob(audioChunks, { type: "audio/webm" });
+        let url = URL.createObjectURL(blob);
+        let player = document.getElementById("audioPlayback");
+        player.src = url;
+        player.style.display = "block";
+
+        let reader = new FileReader();
+        reader.readAsDataURL(blob);
+        reader.onloadend = () => audioBase64 = reader.result;
+    };
+};
+
+/* Upload Audio */
+document.getElementById("audioFile").onchange = function () {
+    let file = this.files[0];
+    if (!file) return;
+
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+        audioBase64 = reader.result;
+        let url = URL.createObjectURL(file);
+        let player = document.getElementById("uploadedAudio");
+        player.src = url;
+        player.style.display = "block";
+        document.getElementById("audioPlayback").style.display = "none";
+    };
+};
+
+/* Submit */
+document.getElementById("submitBtn").onclick = async () => {
+    let propertyTypeVal = document.getElementById("propertyType").value.trim();
+    let whatYouSawVal = document.getElementById("whatYouSaw").value.trim();
+
+    /* ✅ Fully merged comments from 8 fields + main field */
+    let commentsVal ="\n\nFamily Background: " + document.getElementById("c_family").value.trim() +
+        "\n\nHousehold Verification: " + document.getElementById("c_household").value.trim() +
+        "\n\nFinancial Observation: " + document.getElementById("c_financial").value.trim() +
+        "\n\nLoan / EMI Details: " + document.getElementById("c_loan").value.trim() +
+        "\n\nEducation Loan: " + document.getElementById("c_edu_loan").value.trim() +
+        "\n\nStudent Attitude / Behavior: " + document.getElementById("c_attitude").value.trim() +
+        "\n\nOther Observations: " + document.getElementById("c_observation").value.trim() +
+        "\n\nBackup Plan: " + document.getElementById("c_backup").value.trim();
+
+    let recommendationVal = document.getElementById("volunteerRecommendation").value;
+
+    // Required fields only
+    if (!propertyTypeVal || !whatYouSawVal || recommendationVal.includes("Select")) {
+        alert("Please fill required fields (Property, What You Saw, Recommendation)");
+        return;
+    }
+
+    let payload = {
+        studentId: "{{ studentId }}",
+        propertyType: propertyTypeVal,
+        whatYouSaw: whatYouSawVal,
+        comments: commentsVal || "",
+        recommendation: recommendationVal,
+        voiceAudio: audioBase64 || null
+    };
+
+    let btn = document.getElementById("submitBtn");
+    btn.innerText = "Submitting...";
+    btn.disabled = true;
+
+    let res = await fetch("/submit-pv", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+    });
+
+    let data = await res.json();
+
+    if (data.success) {
+        window.location.href = "/students-assign";
+    } else {
+        alert("Error submitting PV!");
+    }
+
+    btn.innerText = "Submit";
+    btn.disabled = false;
+};
+</script>
+</body>
+</html>
