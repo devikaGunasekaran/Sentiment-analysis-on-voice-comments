@@ -53,7 +53,7 @@ Our system introduces an automated, high-throughput verification pipeline powere
 
 ## Class diagram
 
-<img width="1920" height="944" alt="Class diagram" src="" />
+<img width="3507" height="2989" alt="Image" src="https://github.com/user-attachments/assets/9a8cdd50-05e5-4ab1-aad2-799977f18468" />
 
 ## 🎬 Demo Video 
 
