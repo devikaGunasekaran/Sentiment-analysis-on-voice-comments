@@ -52,7 +52,8 @@ Our system introduces an automated, high-throughput verification pipeline powere
 
 
 ## Class diagram
-![Entity-Relationship Diagram for PV System](static/DB DESIGN.png)
+
+<img width="1920" height="944" alt="Class diagram" src="" />
 
 ## 🎬 Demo Video 
 
