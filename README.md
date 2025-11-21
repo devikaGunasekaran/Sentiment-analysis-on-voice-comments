@@ -53,7 +53,9 @@ Our system introduces an automated, high-throughput verification pipeline powere
 
 ## Class diagram
 
-<img width="3507" height="2989" alt="Image" src="https://github.com/user-attachments/assets/9a8cdd50-05e5-4ab1-aad2-799977f18468" />
+<img width="400" height="300" alt="Image" src="https://github.com/user-attachments/assets/9a8cdd50-05e5-4ab1-aad2-799977f18468" />
 
 ## 🎬 Demo Video 
+<video src="https://github.com/user-attachments/assets/e76c80f1-baf8-4447-923f-158b5178502f" controls width="800"></video>
+
 
