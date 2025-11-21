@@ -32,7 +32,7 @@ Our system introduces an automated, high-throughput verification pipeline powere
 | **6. Recommendation** | Provides an **AI-based recommendation** (Select / On Hold / Reject) for the reviewer. | Custom Logic + Gemini |
 | **7. Storage** | Saves all raw data, AI outputs, and final recommendations to **MySQL**. | Backend |
 
-This process ensures **consistent, objective, and machine-readable** data for every PV report.
+
 
 
 
@@ -46,14 +46,16 @@ This process ensures **consistent, objective, and machine-readable** data for ev
 * **Background Async Pipeline** (To handle long-running AI processing without blocking the UI)
 
 ### 🧠 AI / ML
-* **Gemini API** (Used for core **Translation**, **Transcription**, and **Sentiment Analysis**)
+* **Gemini API** (Used for core **Translation**, **Transcription**, and **Sentiment Analysis**)\
+* **LangGraph** (For building the AI agent workflow)
 
 ### 🗃️ Database
 * **MySQL** (To store student details and the comprehensive PhysicalVerification reports)
 
 
 ## Class diagram
-![Entity-Relationship Diagram for PV System](static/DB DESIGN.png)
+![Entity-Relationship Diagram for PV System](./static/DB DESIGN.png)
+
 
 
 ## 🎬 Demo Video 
