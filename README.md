@@ -1,5 +1,4 @@
 # 🤖 AI-Powered PV Verification System (Voice Comment Sentiment Analysis)
----
 
 ## 💡 Project Overview
 
@@ -8,7 +7,6 @@ This project is an AI-enabled Physical Verification (PV) System designed for sch
 The core innovation is:
 > **Automated Sentiment Analysis on Voice Comments using the Gemini API.**
 
----
 
 ## 🎯 The Challenge (Problem Statement)
 
@@ -19,7 +17,6 @@ Traditional Physical Verification reports suffer from significant bottlenecks:
 * **🌐 Language Barrier:** Difficulty in processing **Tanglish (Tamil + English mixed-language) comments**.
 * **⚠️ Inconsistent Outcomes:** Lack of standardized data makes final 'Select/Reject' decisions subjective and inconsistent.
 
----
 
 ## ✨ The Solution (AI-Driven Pipeline)
 
@@ -37,7 +34,7 @@ Our system introduces an automated, high-throughput verification pipeline powere
 
 This process ensures **consistent, objective, and machine-readable** data for every PV report.
 
----
+
 
 ## ⚙️ Tech Stack
 
@@ -54,9 +51,10 @@ This process ensures **consistent, objective, and machine-readable** data for ev
 ### 🗃️ Database
 * **MySQL** (To store student details and the comprehensive PhysicalVerification reports)
 
----
+
 ## Class diagram
+![Entity-Relationship Diagram for PV System](static/DB DESIGN.png)
 
 
----
 ## 🎬 Demo Video 
+
